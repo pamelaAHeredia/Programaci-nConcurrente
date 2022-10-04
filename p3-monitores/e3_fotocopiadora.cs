@@ -149,10 +149,12 @@ process cliente[id: 1..N]{
 
 // 2f- ídem e, pero hay 10 fotocopiadoras. El empleado indica a los clientes cuál usar y cuándo. 
 
+//Dudas: cómo le indico al cliente qué fotocopiadora le toca? 
+
 monitor fotocopiadora[id: 1..10]{
-    cond colaClientes, hayCliente, hayFotocop, terminó; 
-    cola libres; 
-    int esperando = 0, fLibres= 10; 
+    cond colaClientes, hayCliente, terminó; 
+    cola libres[10]; 
+    int esperando = 0; 
 
     procedure solicitar(idF : in int){
         int fotocopAsignada; 
@@ -164,24 +166,20 @@ monitor fotocopiadora[id: 1..10]{
 
     procedure proximo(idF ; out int){
         int idF; 
-        if(fLibres == 0){
-            wait(hayFotocop); 
+        if(libres.empty()){
+            wait(terminó); 
         }
-        fLibres --; 
         pop(libres, idF); 
         if(esperando == 0){
             wait(hayCliente);
         }
         esperando --; 
         signal(colaClientes); 
-        wait(terminó); 
-        fLibres ++; 
-        push(libres, idF); 
     }
 
     procedure terminó(){
-        signal(terminó); 
-        signal(hayFotocop);       
+        push(libres, idF); 
+        signal(terminó);      
     }
 }
 
