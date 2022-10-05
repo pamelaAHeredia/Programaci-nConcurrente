@@ -18,8 +18,6 @@ Process Jtp{
     for i:= 1..50{
         admin.corregir(puntaje); 
     }
-    
-    
 }
 
 Monitor Admin{

@@ -8,7 +8,7 @@ monitor Puente{
 
     procedure entrar(kg: in int){
         if(not libre){
-            if (peso +ḱg > 50000){
+            if (peso + ḱg > 50000){
                 esperando++                                                                                                                                                                                                                                                                                                                         
                 push(fila(kg)); 
                 wait(cola); 
@@ -24,8 +24,8 @@ monitor Puente{
     procedure salir(kg: in int){
         peso -= kg; 
         if (esperando > 0){
-            if(peso + fila.top().kg <= 50000){
-                pop(fila (idP, kg)); 
+            if(peso + fila.top() <= 50000){
+                pop(fila (kg)); 
                 signal(cola);
             }
         }
