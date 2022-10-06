@@ -6,23 +6,23 @@ sem mutex = 1, barrera = 0, premio[E] = ([E], 0);
 
 process Empleado[id: 1..E]{
     p(mutex)
-    if(empleados < E){
-        empleados ++; 
-        v(mutex)
-        v(barrera)
+    empelados ++; 
+    if(empleados == E){
+        for i:= 1 to E
+            v(barrera); 
     }
     v(mutex); 
-    for i := 1 to E{
-        p(barrera)
-    }
+    P(barrera); 
     p(mutex)
     if( totalPiezas > 0){; 
         totalPiezas--; 
         p(mutex); 
         piezasFabricadas[id] += 1; 
+        V(mutex); 
     }
     else{
         v(mutex); 
         p(premio[id]); 
+        //revisar si hay premio
     }   
 }
