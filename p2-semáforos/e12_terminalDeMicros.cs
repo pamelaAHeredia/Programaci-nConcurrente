@@ -20,7 +20,7 @@ process Paciente[id: 1..150]{
     v(mutex); 
     v(hayPaciente[nroPuesto]); 
     p(espera[id]); 
-    v(finalizado[id]); 
+    p(finalizado[id]); 
 }
 
 process Enfermera[id: 1..3]{
@@ -31,7 +31,7 @@ process Enfermera[id: 1..3]{
         totalAtendidos ++; 
         v(mutexPuesto[id]); 
         v(espera[idP]); 
-        //hisopar[]
+        //hisopar()
         v(finalizado[idP]); 
 
     }
