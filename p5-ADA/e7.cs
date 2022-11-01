@@ -16,27 +16,57 @@ Maximizar la concurrencia y no generar demora innecesaria.*/
 
 
 procedure Sistema is 
-    task type servidor is 
-        entry huella(h: in img); 
-    end servidor; 
+    task type servidor;  
 
     servidores: array(1..8) of servidor; 
 
     task especialista is 
-        entry resultadoServidor(c: in int, v: in int); 
+        entry siguienteHuella(h: out img);  
+        entry resultado(c: in int, v: in int); 
+        entry fin; 
     end especialista
 
     task body especialista
-        valorMax, codigoMax, total: int; 
+        valorMax, codigoMax; 
     begin   
         while (true) loop  
-            for i:= 1..8 do loop
-
+            huella := tomarHuella()
+            valorMax := -1; 
+            codigoMax := -1; 
+            for i:= 1..16 do loop
+                select 
+                    accept siguienteHuella(huella); 
+                or 
+                    when (siguienteHuella'count == 0) => 
+                        accept resultado(c, v) do 
+                            if (v > valorMax ) then
+                                valorMax := v; 
+                                codigoMax := c; 
+                            end; 
+                        end resultado; 
+                end select;  
             end 
-        end loop
+
+            for i:= 1..8 do loop; 
+                accept fin; 
+            end loop;
+        end loop; 
 
     end especialista; 
 
-begin 
+    task body servidor is 
+     huella: img; 
+     valor, código: int; 
+    begin  
+        while (true) loop
+            especialista.siguienteHuella(h); 
+            huella := h; 
+            buscarHuella(huella, calor, código); 
+            especialista.resultado(código, valor); 
+            especialista.fin; 
+        end loop; 
+    end servidor; 
 
+begin 
+    null; 
 End Sistema; 
