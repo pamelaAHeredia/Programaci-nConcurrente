@@ -9,9 +9,11 @@ process empleado {
     boolean libre = true; 
 
     while(true){
-        if persona[*]?pedido(idP) -> if (libre) {persona[idP]!turno; libre = false} else {push(cola(idP))}; 
+        if persona[*]?pedido(idP) -> if (libre) {persona[idP]!turno; libre = false} 
+                                        else {push(cola(idP))}; 
 
-        ⎕ persona[*]?fin() -> if (empty(cola)){libre = true} else {pop(cola(idP)); persona[idP]!turno()}
+        ⎕ persona[*]?fin() -> if (empty(cola)){libre = true} 
+                                else {pop(cola(idP)); persona[idP]!turno()}
     }   
 }
 

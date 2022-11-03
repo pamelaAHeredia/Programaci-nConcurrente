@@ -50,20 +50,23 @@ procedure juego is
     end jugador; 
 
     task body equipo is 
-        n, total: int; 
+        n, total: int;
+        queue cola;  
     begin 
         accept nro(num) do 
             n := num;
         end nro; 
 
-        select
-            when (llegada'count == 4) => 
-                for i:= 1..4 loop   
-                    accept llegada(n) do  
-                        jugadores(n).iniciar
-                    end llegada; 
-                end loop
-        end select
+        for i:= 1..4 loop   
+            accept llegada(n) do 
+                push(cola(n)); 
+            end llegada
+        end loop
+
+        for i:= 1..4 loop
+            pop(cola(n))
+            jugadores(n).iniciar; 
+        end loop
 
         for i:= 1..4 loop 
             accept monedas(t) do 

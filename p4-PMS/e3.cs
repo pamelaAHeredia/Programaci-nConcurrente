@@ -49,7 +49,6 @@ process profesor{
 }
 
 //----- P > 1 ---------
-
 process alumno[id: 1..N]{
     text examen; 
     int nota; 
@@ -76,7 +75,7 @@ process profesor{
     text e; 
     int idA, n; 
 
-    while(hay exámenes??){
+    while(true){
         admin!pedido(id); 
         admin?siguiente(e, idA); 
         n = corregir(e); 

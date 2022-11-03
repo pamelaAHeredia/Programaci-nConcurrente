@@ -1,4 +1,13 @@
-//N clientes, un solo empleado que atiende por orden de llegada
+/*Suponga que N clientes llegan a la cola de un banco y que serán atendidos por sus
+empleados. Analice el problema y defina qué procesos, recursos y comunicaciones serán
+necesarios/convenientes para resolver el problema. Luego, resuelva considerando las
+siguientes situaciones:
+a. Existe un único empleado, el cual atiende por orden de llegada.
+b. Ídem a) pero considerando que hay 2 empleados para atender, ¿qué debe
+modificarse en la solución anterior?
+c. Ídem c) pero considerando que, si no hay clientes para atender, los empleados
+realizan tareas administrativas durante 15 minutos. ¿Se puede resolver sin usar
+procesos adicionales? ¿Qué consecuencias implicaría?*/
 
 chan cola(int)
 chan turno[1..N](int)

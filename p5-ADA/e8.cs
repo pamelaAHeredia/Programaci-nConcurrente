@@ -26,8 +26,9 @@ procedure recolección is
         id: int; 
         ok: boolean; 
     begi
-        accept indentificación(pos); 
-        id := pos; 
+        accept indentificación(pos) do
+        id := pos;
+        end identificación
         ok := false; 
         while (not ok) loop
             Empresa.reclamo(id); 
@@ -57,10 +58,10 @@ procedure recolección is
                     total ++:
                 end reclamo;
             or when(siguiente'count > 0 and total > 0) => 
-                posMax := posConMasReclamos(reclamos); 
-                // le paso el id del cliente con más reclamos, y borro su registro para que no lo considere 
-                //cuando busque el proximo. Es correcto hacerlo sincronizado?   
+                
+                // posMax es un param de salida acà   
                 accept siguiente(posMax) do 
+                    posMax := posConMasReclamos(reclamos); 
                     total := total - reclamos[posMax]; 
                     reclamos[posMax] := 0; 
                 end siguiente; 
